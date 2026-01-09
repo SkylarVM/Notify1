@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Notify</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logoDot"></span>
+      <span>Notify</span>
+    </div>
+
+    <div class="topActions">
+      <button id="enableAlertsBtn" class="pill ghost">Enable alerts</button>
+      <div id="meBadge" class="meBadge hidden"></div>
+      <button id="signOutBtn" class="pill ghost hidden">Reset profile</button>
+    </div>
+  </header>
+
+  <!-- Onboarding -->
+  <div id="onboarding" class="center">
+    <div class="card">
+      <h1>Notify</h1>
+      <p class="muted">Chats + invite links + secret codes + Meet-style calls (desktop web).</p>
+
+      <div class="grid">
+        <div>
+          <label>Handle (unique)</label>
+          <input id="handleInput" placeholder="e.g. skylarm" autocomplete="off"/>
+          <div class="tiny muted">This is how people can add you.</div>
+        </div>
+
+        <div>
+          <label>Display name</label>
+          <input id="nameInput" placeholder="e.g. Valeria" autocomplete="off"/>
+          <div class="tiny muted">Shown in chats & calls.</div>
+        </div>
+      </div>
+
+      <button id="saveProfileBtn" class="primary full">Enter Notify</button>
+
+      <div class="hr"></div>
+      <div class="tiny muted">
+        If you opened an invite link, you’ll join the chat automatically after you set your handle.
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="sideHeader">
+        <div class="sideTitle">Chats</div>
+        <div class="sideBtns">
+          <button id="newDmBtn" class="pill">New DM</button>
+          <button id="newGroupBtn" class="pill">New Group</button>
+        </div>
+      </div>
+
+      <div id="chatList" class="chatList"></div>
+    </aside>
+
+    <main class="main">
+      <div id="emptyState" class="emptyState">
+        <div class="emptyTitle">Select a chat</div>
+        <div class="muted">Or create one using “New DM” / “New Group”.</div>
+      </div>
+
+      <div id="chatView" class="chatView hidden">
+        <div class="chatTop">
+          <div class="chatTopLeft">
+            <div id="chatTitle" class="chatTitle"></div>
+            <div id="chatMeta" class="chatMeta"></div>
+          </div>
+
+          <div class="chatTopRight">
+            <button id="inviteBtn" class="pill ghost">Invite link</button>
+            <button id="callBtn" class="pill primary">Meet Call</button>
+          </div>
+        </div>
+
+        <div class="content">
+          <section class="messages">
+            <div id="messages" class="messagesList"></div>
+
+            <div class="composer">
+              <input id="messageInput" placeholder="Write a message…" />
+              <button id="sendBtn" class="pill primary">Send</button>
+            </div>
+          </section>
+
+          <section class="codesPanel">
+            <div class="panelTitle">Codes</div>
+            <div class="muted tiny">Each chat/group can have its own “secret codes”.</div>
+
+            <div id="codesList" class="codesList"></div>
+
+            <details class="codeCreate">
+              <summary>Create code</summary>
+
+              <div class="formGrid">
+                <div>
+                  <label>Code name</label>
+                  <input id="codeName" placeholder="e.g. RED FLAG" />
+                </div>
+
+                <div>
+                  <label>Mode</label>
+                  <select id="codeMode">
+                    <option value="MESSAGE">MESSAGE</option>
+                    <option value="NOTIFICATION">NOTIFICATION</option>
+                    <option value="CALL">CALL (Meet)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label>Color</label>
+                  <input id="codeColor" type="color" value="#ff2d2d" />
+                </div>
+
+                <div>
+                  <label>Sound</label>
+                  <select id="codeSound">
+                    <option value="sos">sos</option>
+                    <option value="ping">ping</option>
+                    <option value="soft">soft</option>
+                  </select>
+                </div>
+
+                <div class="span2">
+                  <label>Default text (optional)</label>
+                  <input id="codeText" placeholder="e.g. Call me now. I need an exit." />
+                </div>
+
+                <button id="saveCodeBtn" class="primary span2">Save code</button>
+              </div>
+            </details>
+          </section>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Incoming code overlay -->
+  <div id="incomingOverlay" class="overlay hidden">
+    <div class="overlayCard">
+      <div id="incomingTitle" class="overlayTitle">CODE</div>
+      <div id="incomingFrom" class="overlayMeta"></div>
+      <div id="incomingText" class="overlayText"></div>
+
+      <div class="overlayBtns">
+        <button id="incomingOpenBtn" class="pill primary">Open</button>
+        <button id="incomingDismissBtn" class="pill ghost">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meet-like call -->
+  <div id="callModal" class="callModal hidden">
+    <div class="callHeader">
+      <div>
+        <div id="callRoomTitle" class="callRoomTitle">Meet Call</div>
+        <div id="callRoomSub" class="callRoomSub muted tiny"></div>
+      </div>
+      <div class="callHeaderBtns">
+        <button id="leaveCallBtn" class="pill danger">Hang up</button>
+      </div>
+    </div>
+
+    <div id="videoGrid" class="videoGrid"></div>
+
+    <div class="callControls">
+      <button id="micBtn" class="pill">Mic</button>
+      <button id="camBtn" class="pill">Cam</button>
+      <button id="shareBtn" class="pill">Share</button>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
